@@ -1,29 +1,5 @@
 # skill-craft-internship
 Hands on session experience on Machine learning internship by skillcraft.
-##House Price Prediction 
-```bash
-# Create a new directory
-mkdir house_price_prediction
-cd house_price_prediction
-
-# Initialize Git repository
-git init
-
-# Create a Python script file
-touch house_price_prediction.py
-
-# Create a README file
-touch README.md
-
-# Create a .gitignore file
-touch .gitignore
-```
-
-Now, open the `house_price_prediction.py` file and paste the Python code I provided earlier.
-
-Edit the `README.md` file to include a description of your project:
-
-```markdown
 # House Price Prediction
 
 This project implements a linear regression model to predict house prices based on features such as square footage, number of bedrooms, and bathrooms.
