@@ -57,12 +57,4 @@ Now, add and commit your files:
 git add .
 git commit -m "Initial commit: House price prediction model"
 ```
-
-If you want to push this to a remote repository (e.g., GitHub), first create a new repository on GitHub, then:
-
-```bash
-git remote add origin https://github.com/yourusername/house_price_prediction.git
-git branch -M main
-git push -u origin main
-```
-
+## Code File is mentioned for more clear reference.
