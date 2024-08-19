@@ -1,0 +1,151 @@
+##K-means clusttering algorithm to group the customers of retail store based on their purchase
+
+
+1. `data/Mall_Customers.csv`:
+This is the dataset file containing customer information.
+
+2. `src/customer_segmentation.py`:
+This Python script will contain the main code for the customer segmentation analysis. Here's the content:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+def load_and_preprocess_data(file_path):
+    df = pd.read_csv(file_path)
+    df = df.drop('CustomerID', axis=1)
+    df['Gender'] = df['Gender'].map({'Male': 0, 'Female': 1})
+    return df
+
+def perform_kmeans_clustering(X, n_clusters=5):
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    kmeans = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42)
+    y_kmeans = kmeans.fit_predict(X_scaled)
+    
+    return X_scaled, y_kmeans, kmeans
+
+def plot_elbow_curve(X_scaled):
+    wcss = []
+    for i in range(1, 11):
+        kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
+        kmeans.fit(X_scaled)
+        wcss.append(kmeans.inertia_)
+    
+    plt.figure(figsize=(10, 6))
+    plt.plot(range(1, 11), wcss)
+    plt.title('Elbow Method')
+    plt.xlabel('Number of clusters')
+    plt.ylabel('WCSS')
+    plt.show()
+
+def plot_clusters(X_scaled, y_kmeans, kmeans):
+    plt.figure(figsize=(10, 6))
+    for i in range(5):
+        plt.scatter(X_scaled[y_kmeans == i, 0], X_scaled[y_kmeans == i, 1], s=100, label=f'Cluster {i+1}')
+    plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=300, c='yellow', label='Centroids')
+    plt.title('Clusters of customers')
+    plt.xlabel('Feature 1 (e.g., Age)')
+    plt.ylabel('Feature 2 (e.g., Annual Income)')
+    plt.legend()
+    plt.show()
+
+def main():
+    df = load_and_preprocess_data('data/Mall_Customers.csv')
+    X = df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']]
+    
+    X_scaled, y_kmeans, kmeans = perform_kmeans_clustering(X)
+    
+    plot_elbow_curve(X_scaled)
+    plot_clusters(X_scaled, y_kmeans, kmeans)
+    
+    df['Cluster'] = y_kmeans
+    print(df.head())
+
+if __name__ == "__main__":
+    main()
+```
+
+3. `requirements.txt`:
+This file lists the required Python packages for the project:
+
+```
+pandas
+matplotlib
+scikit-learn
+jupyter
+```
+
+
+```markdown
+# Mall Customer Segmentation
+
+This project performs customer segmentation analysis on mall customer data using K-means clustering algorithm.
+
+## Data
+
+The dataset used in this project is `Mall_Customers.csv`, located in the `data/` directory. It contains the following features:
+- CustomerID
+- Gender
+- Age
+- Annual Income (k$)
+- Spending Score (1-100)
+
+## Analysis
+
+The project performs the following steps:
+1. Data preprocessing
+2. K-means clustering
+3. Elbow curve analysis for optimal number of clusters
+4. Visualization of customer segments
+
+##Learning Outcome
+The learning outcomes of this customer segmentation project using K-means clustering are:
+
+1. Data preprocessing and handling:
+   - Loading data from CSV files using pandas
+   - Basic data cleaning and feature engineering (e.g., dropping unnecessary columns, encoding categorical variables)
+
+2. Feature scaling:
+   - Understanding the importance of standardization in clustering algorithms
+   - Using StandardScaler from scikit-learn to normalize features
+
+3. K-means clustering:
+   - Understanding the K-means algorithm and its application in customer segmentation
+   - Implementing K-means using scikit-learn's KMeans class
+   - Interpreting cluster assignments and centroids
+
+4. Determining optimal number of clusters:
+   - Using the Elbow Method to find the appropriate number of clusters
+   - Plotting and interpreting the WCSS (Within-Cluster Sum of Squares) curve
+
+5. Data visualization:
+   - Creating scatter plots to visualize clusters in 2D space
+   - Using matplotlib for various plotting tasks (line plots, scatter plots)
+   - Customizing plot appearance (titles, labels, colors, legends)
+
+6. Project structure and best practices:
+   - Organizing a data science project with separate directories for data, source code, and notebooks
+   - Writing modular and reusable code by defining functions for different tasks
+   - Creating a requirements.txt file for managing project dependencies
+   - Writing a comprehensive README for project documentation
+
+7. Exploratory Data Analysis (EDA):
+   - Using Jupyter notebooks for interactive data exploration and visualization
+   - Combining code, visualizations, and explanations in a single document
+
+8. Interpretation of results:
+   - Analyzing the characteristics of different customer segments
+   - Drawing insights from the clustering results to inform business decisions
+
+9. Version control:
+   - Understanding how to structure a Git repository for a data science project
+   - Managing different types of files (code, data, documentation) in a version-controlled environment
+
+10. Python programming skills:
+    - Working with popular data science libraries (pandas, matplotlib, scikit-learn)
+    - Writing functions and organizing code in a main() function
+    - Using conditional statements for script execution (__name__ == "__main__")
