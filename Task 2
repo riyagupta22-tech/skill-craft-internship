@@ -79,8 +79,6 @@ scikit-learn
 jupyter
 ```
 
-
-```markdown
 # Mall Customer Segmentation
 
 This project performs customer segmentation analysis on mall customer data using K-means clustering algorithm.
