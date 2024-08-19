@@ -90,6 +90,3 @@ git branch -M main
 git push -u origin main
 ```
 
-Replace `yourusername` with your actual GitHub username and adjust the repository name if necessary.
-
-This setup creates a basic Git repository for your house price prediction project. The repository includes the main Python script, a README with project information, and a .gitignore file to exclude unnecessary files from version control.
